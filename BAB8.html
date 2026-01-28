@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB8</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB1</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Latihan Kosakata</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .card {
+    background: white;
+    padding: 30px;
+    width: 400px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  input {
+    width: 90%;
+    padding: 8px;
+    margin-top: 15px;
+  }
+  button {
+    margin-top: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+  }
+  .result {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .wrong { color: red; }
+  .correct { color: green; }
+  ol { text-align:left; max-height:400px; overflow:auto; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h2 id="question"></h2>
+  <input type="text" id="answerInput" placeholder="Tulis jawaban di sini">
+  <br>
+  <button id="nextBtn">Selanjutnya</button>
+</div>
+
+<script>
+let questions = [
+{ soal: "가족", jawaban: "keluarga" },
+{ soal: "귀엽다", jawaban: "lucu, imut" },
+{ soal: "성함", jawaban: "nama (sopan)" },
+{ soal: "잘생기다", jawaban: "tampan" },
+{ soal: "아버지", jawaban: "ayah" },
+{ soal: "아빠", jawaban: "ayah" },
+{ soal: "키가 크다", jawaban: "tinggi badan" },
+{ soal: "어머니", jawaban: "ibu" },
+{ soal: "엄마", jawaban: "ibu" },
+{ soal: "키가 적다", jawaban: "pendek badan" },
+{ soal: "형", jawaban: "kakak laki-laki(untuk laki-laki)" },
+{ soal: "머리가 길다", jawaban: "rambut panjang" },
+{ soal: "연세", jawaban: "umur" },
+{ soal: "머리가 짧다", jawaban: "rambut pendek" },
+{ soal: "누나", jawaban: "kakak perempuan (untuk laki-laki)" },
+{ soal: "대화", jawaban: "percakapan" },
+{ soal: "언니", jawaban: "kakak perempuan (untuk perempuan)" },
+{ soal: "오빠", jawaban: "kakak laki-laki (untuk perempuan)" },
+{ soal: "상황", jawaban: "situasi, keadaan" },
+{ soal: "남편", jawaban: "suami" },
+{ soal: "따라하다", jawaban: "mengikuti" },
+{ soal: "아내", jawaban: "istri" },
+{ soal: "구별하다", jawaban: "mensortir" },
+{ soal: "남동생", jawaban: "adik laki-laki" },
+{ soal: "그렇지 않다", jawaban: "tidak begitu" },
+{ soal: "여동생", jawaban: "adik perempuan" },
+{ soal: "기분이 편하다", jawaban: "nyaman" },
+{ soal: "남자", jawaban: "laki-laki" },
+{ soal: "이와", jawaban: "dengan ini" },
+{ soal: "여자", jawaban: "perempuan" },
+{ soal: "존중", jawaban: "menghargai" },
+{ soal: "아들", jawaban: "anak laki-laki" },
+{ soal: "재미있다", jawaban: "menarik" },
+{ soal: "딸", jawaban: "anak perempuan" },
+{ soal: "친절하다", jawaban: "ramah" },
+{ soal: "할아버지", jawaban: "kakek" },
+{ soal: "착하다", jawaban: "baik" },
+{ soal: "할머니", jawaban: "nenek" },
+{ soal: "부모님", jawaban: "orang tua" },
+{ soal: "부지런하다", jawaban: "rajin" },
+{ soal: "활발하다", jawaban: "aktif" },
+{ soal: "형제", jawaban: "saudara laki-laki (saudara)" },
+{ soal: "겨울", jawaban: "musim dingin" },
+{ soal: "자매", jawaban: "saudara perempuan" },
+{ soal: "뿐만 아니라", jawaban: "bukan hanya" },
+{ soal: "잡수시다", jawaban: "makan (sopan)" },
+{ soal: "얌전하다", jawaban: "tenang, pendiam" },
+{ soal: "드시다", jawaban: "makan (sopan)" },
+{ soal: "친밀감", jawaban: "keakraban" },
+{ soal: "자다", jawaban: "tidur" },
+{ soal: "똑똑하다", jawaban: "pintar" },
+{ soal: "주무시다", jawaban: "tidur (sopan)" },
+{ soal: "드러내다", jawaban: "menunjukkan" },
+{ soal: "말하다", jawaban: "berbicara" },
+{ soal: "성격이 급하다", jawaban: "watak tergesa-gesa" },
+{ soal: "말씀하다", jawaban: "berbicara (sopan)" },
+{ soal: "역할하다", jawaban: "berperan" },
+{ soal: "아프다", jawaban: "sakit" },
+{ soal: "전댓말", jawaban: "bahasa halus" },
+{ soal: "편찮으시다", jawaban: "sakit (sopan)" },
+{ soal: "최근에", jawaban: "akhir-akhir ini" },
+{ soal: "있다", jawaban: "ada" },
+{ soal: "지우다", jawaban: "menghapus" },
+{ soal: "남매", jawaban: "saudara laki-laki dan perempuan" },
+{ soal: "높임말", jawaban: "bahasa yang sopan" },
+{ soal: "경우", jawaban: "keadaan, kondisi" },
+{ soal: "반말", jawaban: "bahasa kasar" },
+{ soal: "외모 와 성격", jawaban: "penampilan dan watak" },
+{ soal: "어린", jawaban: "anak muda" },
+{ soal: "한국어", jawaban: "bahasa Korea" },
+{ soal: "예쁘다", jawaban: "cantik" },
+{ soal: "멋있다", jawaban: "ganteng, keren" },
+];
+
+// Acak soal
+questions = questions.sort(() => Math.random() - 0.5);
+
+let index = 0;
+let score = 0;
+let userAnswers = [];
+
+const questionEl = document.getElementById("question");
+const answerInput = document.getElementById("answerInput");
+const nextBtn = document.getElementById("nextBtn");
+const card = document.querySelector(".card");
+
+function showQuestion() {
+  questionEl.textContent = "Soal " + (index + 1) + ": " + questions[index].soal;
+  answerInput.value = "";
+  answerInput.focus();
+}
+
+nextBtn.addEventListener("click", () => {
+  const userAnswer = answerInput.value.trim().toLowerCase();
+  userAnswers[index] = userAnswer; // simpan jawaban sesuai index
+
+  if (userAnswer === questions[index].jawaban) {
+    score++;
+  }
+
+  index++;
+  if (index < questions.length) {
+    showQuestion();
+  } else {
+    showResult();
+  }
+});
+
+function showResult() {
+  let answerList = "";
+  questions.forEach((q, i) => {
+    if (userAnswers[i] === q.jawaban) {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span></li>`;
+    } else {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span><br>
+                     Jawaban kamu: <span class="wrong">${userAnswers[i] || "(kosong)"}</span></li>`;
+    }
+  });
+
+  card.innerHTML = `
+    <h2>Hasil</h2>
+    <p class="result">Nilai: ${score} / ${questions.length}</p>
+    <hr>
+    <p>Kunci Jawaban:</p>
+    <ol>${answerList}</ol>
+  `;
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>
